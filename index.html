@@ -1,15 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>대한민국</title>
+<title>2026 북중미 월드컵</title>
+
+<style>
+body{
+    margin:0;
+    background:white;
+    color:black;
+    font-family:"맑은 고딕", Arial, sans-serif;
+    text-align:center;
+}
+
+.wrap{
+    width:90%;
+    max-width:900px;
+    margin:0 auto;
+    padding-top:25px;
+}
+
+.main-title{
+    font-size:34px;
+    font-weight:900;
+    line-height:1.35;
+    margin-bottom:18px;
+}
+
+.top-area{
+    position:relative;
+    min-height:190px;
+}
+
+/* 화면 전체 클릭으로 음악 재생 */
+.click-layer{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100vw;
+    height:100vh;
+    z-index:5;
+    cursor:pointer;
+}
+
+/* 음악 아이콘은 보이기만 함 */
+.music-icon{
+    position:absolute;
+    left:0;
+    top:55px;
+    z-index:6;
+}
+
+.music-icon img{
+    cursor:pointer;
+}
+
+/* 마우스를 따라다니는 안내 */
+#followTip{
+    position:fixed;
+    left:0;
+    top:0;
+    background:black;
+    color:white;
+    padding:12px 18px;
+    font-size:24px;
+    font-weight:bold;
+    border-radius:12px;
+    white-space:nowrap;
+    pointer-events:none;
+    display:none;
+    z-index:9999;
+}
+
+.emblem img{
+    width:20vw;
+    max-width:180px;
+    min-width:110px;
+}
+
+.sub-title{
+    font-size:100px;
+    font-weight:900;
+    margin:35px 0 70px 0;
+}
+
+.free-space{
+    min-height:480px;
+    font-size:26px;
+}
+
+.bottom-message{
+    font-size:22px;
+    font-weight:700;
+    margin-top:30px;
+}
+
+.fighting{
+    font-size:44px;
+    font-weight:900;
+    color:red;
+    margin:12px 0 40px 0;
+}
+</style>
 </head>
 
 <body>
 
-<h1>대한민국</h1>
+<div class="click-layer" onclick="playMusic()"></div>
 
-<p>GitHub Pages 첫 테스트 성공!</p>
+<div class="wrap">
+
+    <div class="main-title">
+        2026 북중미 월드컵<br>
+        대한민국 축구대표팀을 응원합니다!
+    </div>
+
+    <div class="top-area">
+
+        <div class="music-icon" onclick="playMusic()">
+            <img src="music.gif" alt="음악재생">
+        </div>
+
+        <div class="emblem">
+            <img src="167216_95498_4119.jpg" alt="2026 월드컵 엠블럼">
+        </div>
+
+    </div>
+
+    <div class="sub-title">
+        공 명 선 거
+    </div>
+
+    <div class="free-space">
+    </div>
+
+    <div class="bottom-message">
+    </div>
+
+    <div class="fighting">
+    </div>
+
+</div>
+
+<div id="followTip">
+    🎵 클릭하면 음악 재생
+</div>
+
+<audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+var started = false;
+
+document.addEventListener("mousemove", function(e){
+    var tip = document.getElementById("followTip");
+
+    if(!started){
+        tip.style.display = "block";
+        tip.style.left = (e.clientX + 20) + "px";
+        tip.style.top  = (e.clientY + 20) + "px";
+    }
+});
+
+function playMusic(){
+    var music = document.getElementById("bgm");
+    var tip = document.getElementById("followTip");
+
+    if(music.paused){
+        music.play().then(function(){
+            started = true;
+            tip.style.display = "none";
+        }).catch(function(){
+            tip.innerHTML = "🎵 클릭하면 음악 재생";
+            tip.style.display = "block";
+        });
+    } else {
+        music.pause();
+        started = false;
+        tip.innerHTML = "🎵 클릭하면 음악 재생";
+        tip.style.display = "block";
+    }
+}
+</script>
 
 </body>
 </html>
